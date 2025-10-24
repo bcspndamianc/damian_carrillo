@@ -1,25 +1,29 @@
-name: CI Node.js Tests
+name: CI - Test Workflow
 
 on:
   push:
     branches:
-      - carrillo  # usa tu rama actual
+      - carrillo
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout del código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 18
 
       - name: Instalar dependencias
         run: npm install
 
+      - name: Dar permisos a Jest
+        run: chmod +x ./node_modules/.bin/jest
+
       - name: Ejecutar pruebas
         run: npm test
+
